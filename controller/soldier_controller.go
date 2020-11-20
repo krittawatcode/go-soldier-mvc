@@ -4,7 +4,7 @@ import (
 	"strconv"
 
 	"github.com/gin-gonic/gin"
-	"github.com/krittawatcode/go-testing/service"
+	"github.com/krittawatcode/go-soldier-mvc/service"
 )
 
 type SoldierController interface {

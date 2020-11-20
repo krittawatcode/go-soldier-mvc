@@ -1,4 +1,4 @@
-module github.com/krittawatcode/go-testing
+module github.com/krittawatcode/go-soldier-mvc
 
 go 1.15
 

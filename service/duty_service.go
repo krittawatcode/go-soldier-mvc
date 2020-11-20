@@ -1,11 +1,10 @@
 package service
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/krittawatcode/go-testing/cores"
+	"github.com/krittawatcode/go-soldier-mvc/cores"
 )
 
 // DutyService for define all service
@@ -14,12 +13,12 @@ type DutyService interface {
 }
 
 type soldierInfo struct {
-	Rank       string
-	Wife       int
-	Salary     int
-	Home       bool
-	Car        bool
-	Corruption bool
+	Rank       string `json:"rank"`
+	Wife       int    `json:"wife"`
+	Salary     int    `json:"salary"`
+	Home       bool   `json:"home"`
+	Car        bool   `json:"car"`
+	Corruption bool   `json:"corruption"`
 }
 
 // SoldierDutyService work like a contructer in java
@@ -28,7 +27,6 @@ func SoldierDutyService(c *gin.Context) DutyService {
 	if err := c.ShouldBind(&soldier); err != nil {
 		c.AbortWithStatus(http.StatusBadRequest)
 	}
-	fmt.Printf("%+v \n", soldier)
 	return &soldierInfo{
 		Rank:       soldier.Rank,
 		Wife:       soldier.Wife,
@@ -40,16 +38,12 @@ func SoldierDutyService(c *gin.Context) DutyService {
 }
 
 func (s *soldierInfo) EatTax(c *gin.Context, commission int) {
-	fmt.Println("EatTax")
-	fmt.Println(*s)
-
-	if s.Rank != "elite" {
+	if s.Rank != "General" { // Field Marshall ??
 		s.Salary -= commission
 	}
 	if s.Corruption == true {
-		s.getPromote("elite")
+		s.getPromote("Elite")
 	}
-
 	c.JSON(http.StatusOK, gin.H{"resp": s})
 }
 
