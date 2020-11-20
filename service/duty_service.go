@@ -8,6 +8,7 @@ import (
 	"github.com/krittawatcode/go-testing/cores"
 )
 
+// DutyService for define all service
 type DutyService interface {
 	EatTax(c *gin.Context, commission int)
 }
@@ -21,6 +22,7 @@ type soldierInfo struct {
 	Corruption bool
 }
 
+// SoldierDutyService work like a contructer in java
 func SoldierDutyService(c *gin.Context) DutyService {
 	var soldier cores.Solider
 	if err := c.ShouldBind(&soldier); err != nil {
@@ -47,10 +49,7 @@ func (s *soldierInfo) EatTax(c *gin.Context, commission int) {
 	if s.Corruption == true {
 		s.getPromote("elite")
 	}
-	// jsonSoldier, err := json.Marshal(s)
-	// if err != nil {
-	// 	return
-	// }
+
 	c.JSON(http.StatusOK, gin.H{"resp": s})
 }
 
